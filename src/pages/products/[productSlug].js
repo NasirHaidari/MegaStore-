@@ -37,7 +37,16 @@ export default function Product({ product }) {
           </div>
           <p className={styles.productPrice}> Price: € {product.price}</p>
           <p className={styles.productBuy}>
-            <Button>Add to Cart</Button>
+            <Button
+              className='snipcart-add-item'
+              data-item-id={product.id}
+              data-item-price={product.price}
+              data-item-url={`/products/${product.slug}`}
+              data-item-description={product.description?.text}
+              data-item-image={product.image.url}
+              data-item-name={product.name}>
+              Add to Cart
+            </Button>
           </p>
         </div>
       </Container>
@@ -61,6 +70,7 @@ export async function getStaticProps({ params }) {
           description {
             html
           }
+          slug
         }
       }
     `,
@@ -95,7 +105,6 @@ export async function getStaticPaths() {
     `,
   })
 
-  console.log(data)
   const paths = data.data.products.map((product) => {
     return {
       params: {
@@ -103,7 +112,7 @@ export async function getStaticPaths() {
       },
     }
   })
-  console.log(paths)
+
   return {
     paths,
     fallback: false,

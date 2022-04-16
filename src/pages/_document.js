@@ -20,7 +20,8 @@ export default function Document() {
         <div
           hidden
           id='snipcart'
-          data-api-key='MDExYWE5NzUtMzQxMi00ZGE2LTgwYTItMjRmMmJhYzU4Y2EwNjM3ODU2NTA1NTM0MDI0Mjgz'></div>
+          data-api-key='MDExYWE5NzUtMzQxMi00ZGE2LTgwYTItMjRmMmJhYzU4Y2EwNjM3ODU2NTA1NTM0MDI0Mjgz'
+          data-config-modal-style='side'></div>
       </body>
     </Html>
   )

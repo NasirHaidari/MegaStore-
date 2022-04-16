@@ -22,7 +22,7 @@ export default function Home({ home, products }) {
       </Head>
 
       <Container>
-        <h1 className='sr-only'>Space Jelly Gear</h1>
+        <h1 className='sr-only'>Mega Store!</h1>
 
         <div className={styles.hero}>
           <Link href={heroLink}>
@@ -64,7 +64,16 @@ export default function Home({ home, products }) {
                   </a>
                 </Link>
                 <p>
-                  <Button>Add to Cart</Button>
+                  <Button
+                    className='snipcart-add-item'
+                    data-item-id={product.id}
+                    data-item-price={product.price}
+                    data-item-url={`/products/${product.slug}`}
+                    data-item-description={product.description?.text}
+                    data-item-image={product.image.url}
+                    data-item-name={product.name}>
+                    Add to Cart
+                  </Button>
                 </p>
               </li>
             )
@@ -93,6 +102,7 @@ export async function getStaticProps() {
           heroBackground
         }
         products(first: 4) {
+          id
           name
           price
           slug
@@ -103,7 +113,6 @@ export async function getStaticProps() {
   })
   const home = data.data.page
   const products = data.data.products
-  console.log(home)
 
   return {
     props: {
