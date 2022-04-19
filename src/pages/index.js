@@ -10,9 +10,9 @@ import Button from '@components/Button'
 import products from '@data/products'
 
 import styles from '@styles/Page.module.scss'
+import { buildImage } from '@lib/cloudinary'
 
 export default function Home({ home, products }) {
-  console.log(home)
   const { heroTitle, heroText, heroLink, heroBackground } = home
   return (
     <Layout>
@@ -33,7 +33,7 @@ export default function Home({ home, products }) {
               </div>
               <img
                 className={styles.heroImage}
-                src={heroBackground.url}
+                src={buildImage(heroBackground.public_id).toURL()}
                 with={heroBackground.width}
                 height={heroBackground.height}
                 alt=''
@@ -46,6 +46,7 @@ export default function Home({ home, products }) {
 
         <ul className={styles.products}>
           {products.map((product) => {
+            const imageUrl = buildImage(product.image.public_id).toURL()
             return (
               <li key={product.slug}>
                 <Link href={`/products/${product.slug}`}>
@@ -55,8 +56,8 @@ export default function Home({ home, products }) {
                       <img
                         width={product.image.width}
                         height={product.image.height}
-                        src={product.image.url}
-                        alt=''
+                        src={imageUrl}
+                        alt={product.name}
                       />
                     </div>
                     <h3 className={styles.productTitle}>{product.name}</h3>
@@ -84,14 +85,14 @@ export default function Home({ home, products }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
   const client = new ApolloClient({
     uri: 'https://api-eu-central-1.graphcms.com/v2/cl1xeaipr14tb01z18n9z9ang/master',
     cache: new InMemoryCache(),
   })
   const data = await client.query({
     query: gql`
-      query PageHome {
+      query PageHome($locale: Locale!) {
         page(where: { slug: "home" }) {
           id
           heroLink
@@ -100,7 +101,13 @@ export async function getStaticProps() {
           name
           slug
           heroBackground
+          localizations(locales: [$locale]) {
+            heroText
+            heroTitle
+            locale
+          }
         }
+
         products(first: 4) {
           id
           name
@@ -110,8 +117,19 @@ export async function getStaticProps() {
         }
       }
     `,
+    variables: {
+      locale,
+    },
   })
-  const home = data.data.page
+  let home = data.data.page
+
+  if (home.localizations.length > 0) {
+    home = {
+      ...home,
+      ...home.localizations[0],
+    }
+  }
+
   const products = data.data.products
 
   return {
