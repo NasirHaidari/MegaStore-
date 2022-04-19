@@ -20,7 +20,7 @@ export default function Document() {
         <div
           hidden
           id='snipcart'
-          data-api-key={process.env.NEXT_Public_SNIPCART_API_KEY}
+          data-api-key={process.env.NEXT_PUBLIC_SNIPCART_API_KEY}
           data-config-modal-style='side'></div>
       </body>
     </Html>
