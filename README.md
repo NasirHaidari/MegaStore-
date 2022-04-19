@@ -1,9 +1,5 @@
-# Space Jelly Gear Starter
+# Mega Store!
 
-## ⚡️ Quick Start
+## ⚡️ this project is builded with Next.js and is a complete E-commerce with CDNs, Stripe Payment and GraphCms.
 
-```bash
-yarn create next-app -e https://github.com/colbyfayock/space-jelly-gear-starter
-# or
-npx create-next-app -e https://github.com/colbyfayock/space-jelly-gear-starter
-```
+###
