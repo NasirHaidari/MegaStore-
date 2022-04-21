@@ -7,8 +7,10 @@ import Layout from '@components/Layout'
 import Container from '@components/Container'
 import Button from '@components/Button'
 
+
 import styles from '@styles/Page.module.scss'
 import { buildImage } from '@lib/cloudinary'
+
 
 export default function Home({ home, products }) {
   const { heroTitle, heroText, heroLink, heroBackground } = home
