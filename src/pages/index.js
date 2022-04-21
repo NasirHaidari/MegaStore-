@@ -7,10 +7,8 @@ import Layout from '@components/Layout'
 import Container from '@components/Container'
 import Button from '@components/Button'
 
-
 import styles from '@styles/Page.module.scss'
 import { buildImage } from '@lib/cloudinary'
-
 
 export default function Home({ home, products }) {
   const { heroTitle, heroText, heroLink, heroBackground } = home
@@ -61,7 +59,7 @@ export default function Home({ home, products }) {
                       />
                     </div>
                     <h3 className={styles.productTitle}>{product.name}</h3>
-                    <p className={styles.productPrice}>${product.price}</p>
+                    <p className={styles.productPrice}>€ {product.price}</p>
                   </a>
                 </Link>
                 <p>
@@ -84,8 +82,6 @@ export default function Home({ home, products }) {
     </Layout>
   )
 }
-
-
 
 export async function getStaticProps({ locale }) {
   const client = new ApolloClient({
