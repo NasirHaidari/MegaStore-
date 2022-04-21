@@ -12,6 +12,8 @@ import { buildImage } from '@lib/cloudinary'
 //
 
 export default function Category({ category, products }) {
+  console.log(category)
+  console.log(products)
   return (
     <Layout>
       <Head>
@@ -38,7 +40,7 @@ export default function Category({ category, products }) {
                       <img
                         width={product.image.width}
                         height={product.image.height}
-                        src={imageUrl}
+                        src={product.image.url}
                         alt={product.name}
                       />
                     </div>
