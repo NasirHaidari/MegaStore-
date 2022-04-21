@@ -83,6 +83,8 @@ export default function Home({ home, products }) {
   )
 }
 
+
+
 export async function getStaticProps({ locale }) {
   const client = new ApolloClient({
     uri: 'https://api-eu-central-1.graphcms.com/v2/cl1xeaipr14tb01z18n9z9ang/master',
